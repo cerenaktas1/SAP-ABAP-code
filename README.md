@@ -6,6 +6,34 @@ REPORT *********.
 SELECT * FROM zstudent_info
 INTO TABLE @DATA(lt_student).
 
+*Ödev 1 bütün öğrencileri listeleyen bsit rapor. (Read table)
+
+
+DATA: lv_index TYPE i VALUE 1,  " İndeks başlangıcı
+      lv_lines TYPE i,          " Tablo satır sayısı
+      ls_student TYPE zstudent_info.
+
+DESCRIBE TABLE lt_student LINES lv_lines.
+
+IF lv_lines > 0.
+  WHILE lv_index <= lv_lines.
+    READ TABLE lt_student INTO ls_student INDEX lv_index.
+    IF sy-subrc = 0.
+      WRITE: / ls_student-student_id,
+                 ls_student-first_name,
+                 ls_student-last_name,
+                 ls_student-gender,
+                 ls_student-status,
+                 ls_student-class,
+                 ls_student-department.
+    ENDIF.
+    lv_index = lv_index + 1.
+  ENDWHILE.
+ELSE.
+  WRITE: / 'Hiç öğrenci kaydı bulunamadı.'.
+ENDIF.
+
+
 
 *Öğrencileri loop ile listeledik.
 *LOOP AT lt_student INTO DATA(ls_student).
