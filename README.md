@@ -9,7 +9,7 @@ INTO TABLE @DATA(lt_student).
 
 *Ödev 1 bütün öğrencileri listeleyen bsit rapor.
 
-*HATALI
+
 *READ TABLE lt_student INTO  ls_student WITH KEY first_name = 'Mehmet'.
 *if sy-subrc = 0.
 *
